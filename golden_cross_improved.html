@@ -1,0 +1,752 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Автосалон «Золотой крест» — официальная продажа премиальных автомобилей Mercedes-Benz и Rolls-Royce в Санкт-Петербурге. Trade-In, кредит, гарантия, бонусная программа." />
+  <meta property="og:title" content="Золотой крест — премиальные автомобили" />
+  <meta property="og:description" content="Mercedes-Benz и Rolls-Royce в Санкт-Петербурге" />
+  <meta property="og:type" content="website" />
+  <title>Автосалон «Золотой крест» — премиальные автомобили</title>
+  <style>
+    :root {
+      --bg-dark: #0d0d0d;
+      --bg-darker: #050505;
+      --gold: #d4af37;
+      --gold-hover: #f1c40f;
+      --gold-soft: rgba(212, 175, 55, 0.15);
+      --text-light: #f5f5f5;
+      --text-gray: #b0b0b0;
+      --card-bg: #1a1a1a;
+      --transition: 0.3s ease;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      scroll-behavior: smooth;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+
+    /* Навигация */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(13, 13, 13, 0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      padding: 1rem 0;
+      transition: padding var(--transition);
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--gold);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      transition: opacity var(--transition);
+    }
+
+    .nav-links a {
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--gold);
+      transition: width var(--transition);
+    }
+
+    .nav-links a:hover { color: var(--gold-hover); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Focus для доступности */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 4px;
+      border-radius: 2px;
+    }
+
+    .burger {
+      display: none;
+      cursor: pointer;
+      font-size: 1.5rem;
+      color: var(--gold);
+      background: none;
+      border: none;
+      padding: 0.5rem;
+    }
+
+    /* Hero-секция */
+    .hero {
+      padding: 8rem 0 4rem;
+      text-align: center;
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(ellipse at center top, #1a1a1a 0%, var(--bg-dark) 70%);
+    }
+
+    .hero h1 {
+      font-size: 3.5rem;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      background: linear-gradient(to right, var(--gold), #fff, var(--gold));
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: var(--gold); /* fallback */
+    }
+
+    .hero p {
+      font-size: 1.25rem;
+      color: var(--text-gray);
+      max-width: 600px;
+      margin-bottom: 2.5rem;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: var(--gold);
+      color: var(--bg-dark);
+      font-weight: 700;
+      border: 2px solid var(--gold);
+      border-radius: 4px;
+      transition: transform var(--transition), box-shadow var(--transition), background var(--transition);
+      will-change: transform;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn:active {
+      transform: translateY(-1px);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: var(--gold);
+    }
+
+    .btn-outline:hover {
+      background: var(--gold);
+      color: var(--bg-dark);
+    }
+
+    /* Общие секции */
+    section { padding: 5rem 0; }
+    h2 {
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+      position: relative;
+    }
+    h2::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 3px;
+      background: var(--gold);
+      margin: 10px auto 0;
+    }
+
+    /* Анимация появления секций */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* О компании */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .about-img-wrapper {
+      position: relative;
+      overflow: hidden;
+      border: 2px solid var(--gold);
+      aspect-ratio: 4/3;
+      border-radius: 8px;
+    }
+
+    .about-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
+
+    .about-img-wrapper:hover img {
+      transform: scale(1.08);
+    }
+
+    .about-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      color: var(--gold);
+      font-weight: 700;
+    }
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-gray);
+    }
+
+    /* Каталог авто */
+    .cars-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 2rem;
+    }
+
+    .car-card {
+      background: var(--card-bg);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      transition: transform var(--transition), box-shadow var(--transition);
+      position: relative;
+      will-change: transform;
+    }
+
+    .car-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 15px 40px rgba(212, 175, 55, 0.15);
+    }
+
+    .car-img-wrapper {
+      position: relative;
+      aspect-ratio: 16/9;
+      overflow: hidden;
+      background: #151515;
+    }
+
+    .car-img-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+      will-change: transform;
+    }
+
+    .car-card:hover .car-img-wrapper img {
+      transform: scale(1.1);
+    }
+
+    .badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      padding: 6px 14px;
+      background: var(--gold-soft);
+      color: var(--gold);
+      font-size: 0.8rem;
+      font-weight: 700;
+      border-radius: 20px;
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+    }
+
+    .car-info { padding: 1.5rem; }
+    .car-name { font-size: 1.4rem; margin-bottom: 0.5rem; color: #fff; }
+    .car-specs {
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-gray);
+      list-style: none;
+    }
+    .car-specs li { margin-bottom: 6px; }
+    .car-specs li::before {
+      content: '◆ ';
+      color: var(--gold);
+      font-size: 0.7rem;
+    }
+    .car-price {
+      font-size: 1.3rem;
+      color: var(--gold);
+      font-weight: 700;
+      margin-top: 1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.08);
+    }
+
+    /* Акции */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .promo-card {
+      background: var(--card-bg);
+      padding: 2rem;
+      border-left: 4px solid var(--gold);
+      border-radius: 8px;
+      transition: transform var(--transition), box-shadow var(--transition);
+      will-change: transform;
+    }
+
+    .promo-card:hover {
+      transform: translateX(4px);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+
+    .promo-card h3 { color: var(--gold); margin-bottom: 0.8rem; font-size: 1.3rem; }
+    .promo-card p { color: var(--text-gray); }
+
+    /* Бонусная программа */
+    .loyalty-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .level-card {
+      background: var(--card-bg);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 8px;
+      transition: border-color var(--transition), transform var(--transition);
+      will-change: transform;
+    }
+
+    .level-card:hover {
+      border-color: var(--gold);
+      transform: translateY(-4px);
+    }
+
+    .level-icon {
+      font-size: 2rem;
+      margin-bottom: 0.8rem;
+    }
+    .level-title { color: var(--gold); font-weight: 700; font-size: 1.2rem; margin-bottom: 0.5rem; }
+    .level-desc { font-size: 0.95rem; color: var(--text-gray); }
+
+    /* Контакты */
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .contact-info p { margin-bottom: 1rem; color: var(--text-gray); }
+    .contact-info strong { color: #fff; }
+    .contact-info a { color: var(--gold); transition: color var(--transition); }
+    .contact-info a:hover { color: var(--gold-hover); }
+
+    .map-wrapper {
+      width: 100%;
+      aspect-ratio: 16/9;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 1px solid #333;
+    }
+    .map-wrapper iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      filter: grayscale(40%) invert(90%) hue-rotate(180deg);
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-darker);
+      padding: 2rem 0;
+      text-align: center;
+      border-top: 1px solid rgba(212, 175, 55, 0.1);
+    }
+    footer p { color: var(--text-gray); font-size: 0.9rem; }
+
+    /* Стрелка прокрутки */
+    .scroll-down {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      animation: bounce 2s infinite;
+      cursor: pointer;
+      font-size: 1.5rem;
+    }
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(10px); }
+      60% { transform: translateX(-50%) translateY(5px); }
+    }
+
+    /* Адаптив */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .hero p { font-size: 1.1rem; }
+      h2 { font-size: 1.8rem; }
+
+      .nav-links {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--bg-dark);
+        padding: 1rem 0;
+        flex-direction: column;
+        gap: 1rem;
+        text-align: center;
+        border-bottom: 1px solid rgba(212, 175, 55, 0.2);
+      }
+      .nav-links.active { display: flex; }
+      .burger { display: block; }
+      .about-grid, .contact-grid { grid-template-columns: 1fr; }
+      .about-stats { flex-wrap: wrap; justify-content: center; }
+    }
+
+    /* Уважение к prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+      }
+      .scroll-down { animation: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="container">
+      <nav>
+        <a href="#hero" class="logo">Золотой крест</a>
+        <ul class="nav-links" id="navLinks">
+          <li><a href="#about">О компании</a></li>
+          <li><a href="#cars">Автомобили</a></li>
+          <li><a href="#promo">Акции</a></li>
+          <li><a href="#loyalty">Бонусы</a></li>
+          <li><a href="#contacts">Контакты</a></li>
+        </ul>
+        <button class="burger" id="burgerBtn" aria-label="Открыть меню" aria-expanded="false">
+          ☰
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero" id="hero">
+    <div class="container">
+      <h1>Премиальные автомобили — без компромиссов</h1>
+      <p>Салон «Золотой крест»: Mercedes-Benz и Rolls-Royce для тех, кто ценит статус, комфорт и безупречное качество.</p>
+      <a href="#cars" class="btn">Выбрать автомобиль</a>
+    </div>
+    <a href="#about" class="scroll-down" aria-label="Прокрутить вниз">▼</a>
+  </section>
+
+  <section id="about" class="reveal">
+    <div class="container">
+      <h2>О компании</h2>
+      <div class="about-grid">
+        <div>
+          <p>«Золотой крест» работает на рынке премиальных автомобилей с 2012 года. Мы предлагаем только проверенные автомобили с прозрачной историей и полным пакетом документов. Наша миссия — сделать покупку автомобиля класса люкс понятной, безопасной и комфортной.</p>
+          <br>
+          <p>Мы сотрудничаем напрямую с официальными дилерами, проводим комплексную диагностику каждого авто и предоставляем гарантию на техническое состояние. Доверие клиентов — наш главный приоритет.</p>
+          <div class="about-stats">
+            <div class="stat-item">
+              <div class="stat-number">12+</div>
+              <div class="stat-label">лет на рынке</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">1500+</div>
+              <div class="stat-label">довольных клиентов</div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-number">100%</div>
+              <div class="stat-label">гарантия</div>
+            </div>
+          </div>
+        </div>
+        <div class="about-img-wrapper">
+          <img src="https://images.unsplash.com/photo-1606664515520-ed4e2df4d57c?w=800&h=600&fit=crop" alt="Шоурум автосалона Золотой крест" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="cars" class="reveal">
+    <div class="container">
+      <h2>Наши автомобили</h2>
+      <div class="cars-grid">
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1622200294772-e411b7a86349?w=600&h=338&fit=crop" alt="Mercedes-Benz S 500 — чёрный седан" loading="lazy" />
+            <span class="badge">В наличии</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Mercedes-Benz S 500</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 3.0 л, V6, 435 л.с.</li>
+              <li>Привод: полный 4MATIC</li>
+              <li>КПП: 9G-Tronic</li>
+              <li>Комплектация: Executive, массажные сиденья, MBUX</li>
+            </ul>
+            <div class="car-price">от 14 900 000 ₽</div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1606152421811-aa91f6e38777?w=600&h=338&fit=crop" alt="Mercedes-AMG G 63 — чёрный внедорожник" loading="lazy" />
+            <span class="badge">Эксклюзив</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Mercedes-AMG G 63</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 4.0 л, V8, 585 л.с.</li>
+              <li>Привод: полный</li>
+              <li>КПП: 9G-Tronic</li>
+              <li>Разгон 0–100: 4.5 сек</li>
+            </ul>
+            <div class="car-price">от 22 500 000 ₽</div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1617531653332-bd46c24f2068?w=600&h=338&fit=crop" alt="Mercedes-Benz E 350 — белый седан" loading="lazy" />
+            <span class="badge">В наличии</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Mercedes-Benz E 350</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 2.0 л, 299 л.с.</li>
+              <li>Привод: задний</li>
+              <li>КПП: 9G-Tronic</li>
+              <li>Комплектация: Avantgarde</li>
+            </ul>
+            <div class="car-price">от 7 900 000 ₽</div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1631295868223-6325b9b9b9b9?w=600&h=338&fit=crop" alt="Rolls-Royce Phantom — чёрный седан" loading="lazy" />
+            <span class="badge">Эксклюзив</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Rolls-Royce Phantom</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 6.75 л, V12, 571 л.с.</li>
+              <li>Привод: задний</li>
+              <li>КПП: 8-ст. автомат</li>
+              <li>Комплектация: Bespoke</li>
+            </ul>
+            <div class="car-price">от 65 000 000 ₽</div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=600&h=338&fit=crop" alt="Rolls-Royce Ghost — серебристый седан" loading="lazy" />
+            <span class="badge">Под заказ</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Rolls-Royce Ghost</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 6.75 л, V12, 571 л.с.</li>
+              <li>Привод: полный</li>
+              <li>КПП: 8-ст. автомат</li>
+              <li>Комплектация: Extended</li>
+            </ul>
+            <div class="car-price">от 45 000 000 ₽</div>
+          </div>
+        </article>
+
+        <article class="car-card">
+          <div class="car-img-wrapper">
+            <img src="https://images.unsplash.com/photo-1606664515520-ed4e2df4d57c?w=600&h=338&fit=crop" alt="Rolls-Royce Cullinan — белый внедорожник" loading="lazy" />
+            <span class="badge">В наличии</span>
+          </div>
+          <div class="car-info">
+            <h3 class="car-name">Rolls-Royce Cullinan</h3>
+            <ul class="car-specs">
+              <li>Двигатель: 6.75 л, V12, 571 л.с.</li>
+              <li>Привод: полный</li>
+              <li>КПП: 8-ст. автомат</li>
+              <li>Внедорожный люкс</li>
+            </ul>
+            <div class="car-price">от 55 000 000 ₽</div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <section id="promo" class="reveal">
+    <div class="container">
+      <h2>Акции</h2>
+      <div class="promo-grid">
+        <div class="promo-card">
+          <h3>Trade-In +15%</h3>
+          <p>Сдайте свой автомобиль и получите надбавку 15% к рыночной оценке при покупке любого авто из каталога.</p>
+        </div>
+        <div class="promo-card">
+          <h3>Кредит под 0,01%</h3>
+          <p>Специальное предложение на Mercedes-Benz S-Class: кредитная ставка от 0,01% годовых на срок до 36 месяцев.</p>
+        </div>
+        <div class="promo-card">
+          <h3>Бесплатный сервис</h3>
+          <p>При покупке Rolls-Royce — первое ТО и годовое обслуживание в подарок.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="loyalty" class="reveal">
+    <div class="container">
+      <h2>Бонусная программа</h2>
+      <div class="loyalty-grid">
+        <div class="level-card">
+          <div class="level-icon">🥈</div>
+          <div class="level-title">Серебряный</div>
+          <div class="level-desc">Скидка 3% на сервис и аксессуары. Начисляется после первой покупки.</div>
+        </div>
+        <div class="level-card">
+          <div class="level-icon">🥇</div>
+          <div class="level-title">Золотой</div>
+          <div class="level-desc">Скидка 5% на сервис, приоритетная запись. При сумме покупок от 5 млн ₽.</div>
+        </div>
+        <div class="level-card">
+          <div class="level-icon">💠</div>
+          <div class="level-title">Платиновый</div>
+          <div class="level-desc">Скидка 8% на сервис, бесплатная химчистка 2 раза в год. От 15 млн ₽.</div>
+        </div>
+        <div class="level-card">
+          <div class="level-icon">💎</div>
+          <div class="level-title">Бриллиантовый</div>
+          <div class="level-desc">Скидка 12% на сервис, персональный менеджер 24/7. От 30 млн ₽.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contacts" class="reveal">
+    <div class="container">
+      <h2>Контакты</h2>
+      <div class="contact-grid">
+        <div class="contact-info">
+          <p><strong>Адрес:</strong> Санкт-Петербург, Пискарёвский проспект, 150</p>
+          <p><strong>Часы работы:</strong> Пн–Сб: 9:00–21:00, Вс: 10:00–18:00</p>
+          <p><strong>Телефон:</strong> <a href="tel:+78125550055">+7 (812) 555-00-55</a></p>
+          <p><strong>Email:</strong> <a href="mailto:info@goldcross.ru">info@goldcross.ru</a></p>
+          <p><strong>Доставка:</strong> Осуществляем доставку по всей России</p>
+        </div>
+        <div class="map-wrapper">
+          <iframe src="https://yandex.ru/map-widget/v1/?ll=30.391%2C59.989&z=14" loading="lazy" title="Карта — местоположение автосалона Золотой крест"></iframe>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container">
+      <p>© 2024 Автосалон «Золотой крест». Все права защищены.</p>
+    </div>
+  </footer>
+
+  <script>
+    // Бургер-меню
+    const burger = document.getElementById('burgerBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    burger.addEventListener('click', () => {
+      const isActive = navLinks.classList.toggle('active');
+      burger.setAttribute('aria-expanded', isActive);
+      burger.textContent = isActive ? '✕' : '☰';
+    });
+
+    // Закрытие меню при клике на ссылку
+    navLinks.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      });
+    });
+
+    // Закрытие меню при клике вне его
+    document.addEventListener('click', (e) => {
+      if (!navLinks.contains(e.target) && !burger.contains(e.target)) {
+        navLinks.classList.remove('active');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.textContent = '☰';
+      }
+    });
+
+    // Анимация появления секций при скролле
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+
+</body>
+</html>
